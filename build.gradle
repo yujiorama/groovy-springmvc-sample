@@ -6,19 +6,15 @@ apply plugin: 'jetty'
 defaultTasks 'clean', 'build'
 
 group = 'com.github.kdabir'
-def artifactId = 'groovy-springmvc-sample'
 version = '0.0.1-SNAPSHOT'
-
-description = 'groovy-springmvc-sample'
 
 sourceCompatibility = '1.6'
 targetCompatibility = '1.6'
-def defaultEncoding = 'UTF-8'
 
-jettyRun.contextPath = '/'
-
-configurations {
+project.ext {
+  artifactId = 'groovy-springmvc-sample'
   springframeworkVersion = '3.2.0.RELEASE'
+  defaultEncoding = 'UTF-8'
 }
 
 repositories {
@@ -32,9 +28,9 @@ dependencies {
   compile 'javax.servlet:jstl:1.2'
   compile 'taglibs:standard:1.1.2'
   compile 'com.h2database:h2:1.3.170'
-  compile "org.springframework:spring-webmvc:${springframeworkVersion}"
-  compile "org.springframework:spring-orm:${springframeworkVersion}"
-  compile "org.springframework:spring-jdbc:${springframeworkVersion}"
+  compile "org.springframework:spring-webmvc:${ext.springframeworkVersion}"
+  compile "org.springframework:spring-orm:${ext.springframeworkVersion}"
+  compile "org.springframework:spring-jdbc:${ext.springframeworkVersion}"
   compile 'org.hibernate:hibernate-entitymanager:3.6.10.Final'
   compile 'org.sitemesh:sitemesh:3.0-alpha-1'
 }
@@ -48,8 +44,10 @@ sourceSets {
 }
 
 [compileJava, compileTestJava, compileGroovy, compileTestGroovy].each {
-    it.options.encoding = defaultEncoding
+    it.options.encoding = ext.defaultEncoding
 }
+
+jettyRun.contextPath = '/'
 
 task wrapper(type: Wrapper) {
     gradleVersion = '1.3'
