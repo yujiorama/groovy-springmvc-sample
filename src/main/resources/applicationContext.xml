@@ -30,7 +30,7 @@
     </bean>
 
     <beans profile="default">
-        <jdbc:embedded-database id="dataSource"/>        
+        <jdbc:embedded-database id="dataSource" type="H2"/>
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
             <property name="dataSource" ref="dataSource"/>
             <property name="jpaVendorAdapter">
@@ -38,7 +38,7 @@
             </property>
             <property name="jpaProperties">
                 <props>
-                    <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                    <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                     <prop key="hibernate.hbm2ddl.auto">create</prop>
                 </props>
             </property>
